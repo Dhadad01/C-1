@@ -3,13 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-
+#include <math.h>
+const int MAX_SIZE_LINE = 1024;
+const int NUM_OF_ARGS = 5;
 // your code goes here
 
 int main (int argc, char *argv[])
 {
-  if (argc != 5 && argc != 2)
+  if (argc != NUM_OF_ARGS && argc != 2)
   {
     fprintf (stderr, "The program receives 1 or 4 arguments only.\n");
     return EXIT_FAILURE;
@@ -19,30 +20,24 @@ int main (int argc, char *argv[])
     fprintf (stderr, "Usage: cipher test\n");
     return EXIT_FAILURE;
   }
-  else if (argc == 5 && strcmp (argv[1], "encode") != 0 && strcmp
-                                                               (argv[1], "decode")
-                                                           != 0)
+  else if
+      (argc == NUM_OF_ARGS && strcmp (argv[1], "encode") != 0 && strcmp
+                                                                     (argv[1], "decode") != 0)
+
   {
     fprintf (stderr, "The given command is invalid.\n");
     return EXIT_FAILURE;
   }
-  else if (argc == 5)
+  else if (argc == NUM_OF_ARGS)
   {
-    int is_k_0 = 1;
-    if (strcmp ("0", argv[2]) != 0)
-    {
-      is_k_0 = 0;
-    }
 
-    int new_k = atoi (argv[2]);
-    if (new_k == 0)
+    float new_k = strtof(argv[2],NULL);
+
+    float is_k_int= fmodf (new_k,1);
+    if (is_k_int != 0)
     {
       fprintf (stderr, "The given shift value is invalid.\n");
       return EXIT_FAILURE;
-    }
-    else if (is_k_0 == 0)
-    {
-      new_k = 0;
     }
     FILE *in = fopen (argv[3], "r");
     FILE *out = fdopen (argv[4], "w");
@@ -52,8 +47,8 @@ int main (int argc, char *argv[])
     }
     //all good
 
-    char line[1024];
-    while (fgets (line, 1024, in))
+    char line[MAX_SIZE_LINE];
+    while (fgets (line, MAX_SIZE_LINE, in))
     {
       if (strcmp (argv[1], "encode") == 0)
       {
@@ -63,7 +58,12 @@ int main (int argc, char *argv[])
       else if (strcmp (argv[1], "decode") == 0)
       {
         decode (line, new_k);
+        fputs (line, out);
       }
+    }
+    if (argc==NUM_OF_ARGS){
+      fclose (argv[3]);
+      fclose (argv[4]);
     }
     if (strcmp (argv[1], "test") == 0)
     {
@@ -88,6 +88,5 @@ int main (int argc, char *argv[])
   }
   return EXIT_SUCCESS;
 }
-
 
 
