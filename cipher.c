@@ -1,11 +1,11 @@
 #include "cipher.h"
 #include <string.h>
 #include <stdio.h>
-const int HIGHEST_LOWERCASE = 123;
-const int NUM_OF_ALPHA_BET = 26;
-const int HIGHEST_SIGN = 96;
-const int LOWEST_SIGN = 91;
-const int LOWEST_UPPERCASE = 64;
+#define HIGHEST_LOWERCASE 123
+#define  NUM_OF_ALPHA_BET 26
+#define  HIGHEST_SIGN 96
+#define  LOWEST_SIGN 91
+#define  LOWEST_UPPERCASE  64
 /// IN THIS FILE, IMPLEMENT EVERY FUNCTION THAT'S DECLARED IN cipher.h.
 
 
@@ -86,3 +86,4 @@ void decode (char s[], int k)
     }
   }
 }
+

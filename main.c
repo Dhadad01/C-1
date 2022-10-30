@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-const int MAX_SIZE_LINE = 1024;
-const int NUM_OF_ARGS = 5;
+#define MAX_SIZE_LINE 1024
+#define NUM_OF_ARGS 5
 // your code goes here
 
 int main (int argc, char *argv[])
@@ -22,8 +22,8 @@ int main (int argc, char *argv[])
   }
   else if
       (argc == NUM_OF_ARGS && strcmp (argv[1], "encode") != 0 && strcmp
-                                                                     (argv[1], "decode") != 0)
-
+                                                                     (argv[1], "decode")
+                                                                 != 0)
   {
     fprintf (stderr, "The given command is invalid.\n");
     return EXIT_FAILURE;
@@ -31,16 +31,16 @@ int main (int argc, char *argv[])
   else if (argc == NUM_OF_ARGS)
   {
 
-    float new_k = strtof(argv[2],NULL);
+    float new_k = strtof (argv[2], NULL);
 
-    float is_k_int= fmodf (new_k,1);
+    float is_k_int = fmodf (new_k, 1);
     if (is_k_int != 0)
     {
       fprintf (stderr, "The given shift value is invalid.\n");
       return EXIT_FAILURE;
     }
     FILE *in = fopen (argv[3], "r");
-    FILE *out = fdopen (argv[4], "w");
+    FILE *out = fopen (argv[4], "w");
     if (in == NULL || out == NULL)
     {
       fprintf (stderr, "The given file is invalid.\n");
@@ -52,18 +52,19 @@ int main (int argc, char *argv[])
     {
       if (strcmp (argv[1], "encode") == 0)
       {
-        encode (line, new_k);
+        encode (line, (int) new_k);
         fputs (line, out);
       }
       else if (strcmp (argv[1], "decode") == 0)
       {
-        decode (line, new_k);
+        decode (line, (int) new_k);
         fputs (line, out);
       }
     }
-    if (argc==NUM_OF_ARGS){
-      fclose (argv[3]);
-      fclose (argv[4]);
+    if (argc == NUM_OF_ARGS)
+    {
+      fclose (in);
+      fclose (out);
     }
     if (strcmp (argv[1], "test") == 0)
     {
@@ -88,5 +89,4 @@ int main (int argc, char *argv[])
   }
   return EXIT_SUCCESS;
 }
-
 
