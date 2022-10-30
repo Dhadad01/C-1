@@ -30,12 +30,10 @@ int main (int argc, char *argv[])
   }
   else if (argc == NUM_OF_ARGS)
   {
+    char *end;
+    int new_k = strtol (argv[2], &end,10);
 
-    float new_k = strtof (argv[2], NULL);
-
-    float is_k_int = fmodf (new_k, 1);
-    if (is_k_int != 0)
-    {
+    if (strcmp (end,"")!=0){
       fprintf (stderr, "The given shift value is invalid.\n");
       return EXIT_FAILURE;
     }
