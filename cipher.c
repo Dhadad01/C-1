@@ -13,7 +13,7 @@
 void encode (char s[], int k)
 {
   int mod_k = k % 26;
-  unsigned int ln = strlen (s);
+  size_t ln = strlen (s);
   for (int i = 0; i < ln; i++)
   {
     if (LOWEST_UPPERCASE < s[i] && s[i] < HIGHEST_LOWERCASE
@@ -50,7 +50,7 @@ void encode (char s[], int k)
 // See full documentation in header file
 void decode (char s[], int k)
 {
-  unsigned int ln = strlen (s);
+  size_t ln = strlen (s);
   int mod_k = k % NUM_OF_ALPHA_BET;
   for (int i = 0; i < ln; i++)
   {
