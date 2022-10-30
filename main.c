@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #define MAX_SIZE_LINE 1024
 #define NUM_OF_ARGS 5
 // your code goes here
@@ -32,14 +31,13 @@ int main (int argc, char *argv[])
   else if (argc == NUM_OF_ARGS)
   {
 
-    float new_k = strtof (argv[2], NULL);
-
-    float is_k_int = fmodf (new_k, 1);
-    if (is_k_int != 0)
-    {
+    char *end;
+    int new_k = strtol (argv[2], &end,10);
+    if (strcmp (end,"")!=0){
       fprintf (stderr, "The given shift value is invalid.\n");
       return EXIT_FAILURE;
     }
+
     FILE *in = fopen (argv[3], "r");
     FILE *out = fopen (argv[4], "w");
     if (in == NULL || out == NULL)
@@ -47,8 +45,6 @@ int main (int argc, char *argv[])
       fprintf (stderr, "The given file is invalid.\n");
     }
     //all good
-    printf ("%d",argc);
-
     char line[MAX_SIZE_LINE];
     while (fgets (line, MAX_SIZE_LINE, in))
     {
