@@ -12,7 +12,7 @@ int main (int argc, char *argv[])
 {
   if (argc != NUM_OF_ARGS && argc != 2)
   {
-    fprintf (stderr, "The program receives 1 or 4 arguments only.\n");
+    fprintf (stderr,"The program receives 1 or 4 arguments only.\n");
     return EXIT_FAILURE;
   }
   else if (strcmp (argv[1], "test") != 0 && argc == 2)
@@ -22,7 +22,8 @@ int main (int argc, char *argv[])
   }
   else if
       (argc == NUM_OF_ARGS && strcmp (argv[1], "encode") != 0 && strcmp
-                                                                     (argv[1], "decode")
+
+                                              (argv[1], "decode")
                                                                  != 0)
   {
     fprintf (stderr, "The given command is invalid.\n");
@@ -30,10 +31,12 @@ int main (int argc, char *argv[])
   }
   else if (argc == NUM_OF_ARGS)
   {
-    char *end;
-    int new_k = strtol (argv[2], &end,10);
 
-    if (strcmp (end,"")!=0){
+    float new_k = strtof (argv[2], NULL);
+
+    float is_k_int = fmodf (new_k, 1);
+    if (is_k_int != 0)
+    {
       fprintf (stderr, "The given shift value is invalid.\n");
       return EXIT_FAILURE;
     }
@@ -44,6 +47,7 @@ int main (int argc, char *argv[])
       fprintf (stderr, "The given file is invalid.\n");
     }
     //all good
+    printf ("%d",argc);
 
     char line[MAX_SIZE_LINE];
     while (fgets (line, MAX_SIZE_LINE, in))
@@ -59,32 +63,31 @@ int main (int argc, char *argv[])
         fputs (line, out);
       }
     }
-    if (argc == NUM_OF_ARGS)
+    fclose (in);
+    fclose (out);
+  }
+
+  if (strcmp (argv[1], "test") == 0)
+  {
+    if (test_encode_non_cyclic_lower_case_positive_k ()
+        || test_encode_cyclic_lower_case_special_char_positive_k ()
+        || test_encode_non_cyclic_lower_case_special_char_negative_k ()
+        || test_encode_cyclic_lower_case_negative_k ()
+        || test_encode_cyclic_upper_case_positive_k ()
+        || test_decode_non_cyclic_lower_case_positive_k ()
+        || test_decode_cyclic_lower_case_special_char_positive_k ()
+        || test_decode_non_cyclic_lower_case_special_char_negative_k ()
+        || test_decode_cyclic_lower_case_negative_k ()
+        || test_decode_cyclic_upper_case_positive_k ()!=0)
     {
-      fclose (in);
-      fclose (out);
+      return EXIT_FAILURE;
     }
-    if (strcmp (argv[1], "test") == 0)
+    else
     {
-      if (test_encode_non_cyclic_lower_case_positive_k ()
-          || test_encode_cyclic_lower_case_special_char_positive_k ()
-          || test_encode_non_cyclic_lower_case_special_char_negative_k ()
-          || test_encode_cyclic_lower_case_negative_k ()
-          || test_encode_cyclic_upper_case_positive_k ()
-          || test_decode_non_cyclic_lower_case_positive_k ()
-          || test_decode_cyclic_lower_case_special_char_positive_k ()
-          || test_decode_non_cyclic_lower_case_special_char_negative_k ()
-          || test_decode_cyclic_lower_case_negative_k ()
-          || test_decode_cyclic_upper_case_positive_k ())
-      {
-        return EXIT_FAILURE;
-      }
-      else
-      {
-        return EXIT_SUCCESS;
-      }
+      return EXIT_SUCCESS;
     }
   }
   return EXIT_SUCCESS;
 }
+
 

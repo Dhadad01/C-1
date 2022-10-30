@@ -5,7 +5,7 @@
 #define  NUM_OF_ALPHA_BET 26
 #define  HIGHEST_SIGN 96
 #define  LOWEST_SIGN 91
-#define  LOWEST_UPPERCASE  64
+#define  LOWEST_UPPERCASE  65
 /// IN THIS FILE, IMPLEMENT EVERY FUNCTION THAT'S DECLARED IN cipher.h.
 
 
@@ -13,9 +13,10 @@
 void encode (char s[], int k)
 {
   int mod_k = k % 26;
-  for (size_t i = 0; i < strlen (s); i++)
+  unsigned int ln = strlen (s);
+  for (int i = 0; i < ln; i++)
   {
-    if (LOWEST_UPPERCASE < s[i] && s[i] < HIGHEST_LOWERCASE
+    if (LOWEST_UPPERCASE <= s[i] && s[i] <= HIGHEST_LOWERCASE
         && (s[i] < LOWEST_SIGN ||
             s[i] > HIGHEST_SIGN))
     {
@@ -49,10 +50,11 @@ void encode (char s[], int k)
 // See full documentation in header file
 void decode (char s[], int k)
 {
+  unsigned int ln = strlen (s);
   int mod_k = k % NUM_OF_ALPHA_BET;
-  for (size_t i = 0; i < strlen (s); i++)
+  for (int i = 0; i < ln; i++)
   {
-    if (LOWEST_UPPERCASE < s[i] && s[i] < HIGHEST_LOWERCASE
+    if (LOWEST_UPPERCASE <= s[i] && s[i] <= HIGHEST_LOWERCASE
         && (s[i] < LOWEST_SIGN ||
             s[i] > HIGHEST_SIGN))
     {
@@ -84,4 +86,3 @@ void decode (char s[], int k)
     }
   }
 }
-

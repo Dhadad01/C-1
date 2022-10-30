@@ -1,5 +1,4 @@
 #include "tests.h"
-
 #define K_1 3
 #include <string.h>
 
