@@ -43,6 +43,7 @@ int main (int argc, char *argv[])
     if (in == NULL || out == NULL)
     {
       fprintf (stderr, "The given file is invalid.\n");
+      return EXIT_FAILURE;
     }
     //all good
     char line[MAX_SIZE_LINE];

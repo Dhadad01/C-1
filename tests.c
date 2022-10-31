@@ -1,6 +1,8 @@
 #include "tests.h"
-#define K_1 3
 #include <string.h>
+#define BIGGER_THAN_26_K 29
+#define K_1 3
+
 
 // See full documentation in header file
 int test_encode_non_cyclic_lower_case_positive_k ()
@@ -44,7 +46,7 @@ int test_encode_cyclic_upper_case_positive_k ()
 {
     char in[] = "XYZA";
     char out[] = "ABCD";
-    encode (in, 29);
+    encode (in, BIGGER_THAN_26_K);
     return strcmp (in, out) != 0;
 }
 
@@ -89,6 +91,6 @@ int test_decode_cyclic_upper_case_positive_k ()
 {
   char in[] = "ABC!";
   char out[] = "XYZ!";
-  decode (in, 29);
+  decode (in, BIGGER_THAN_26_K);
   return strcmp (in, out) != 0;
 }
