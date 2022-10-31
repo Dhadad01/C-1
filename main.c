@@ -5,6 +5,7 @@
 #include <string.h>
 #define MAX_SIZE_LINE 1024
 #define NUM_OF_ARGS 5
+#define DECIMAL_BASE 10
 // your code goes here
 
 int main (int argc, char *argv[])
@@ -32,7 +33,7 @@ int main (int argc, char *argv[])
   {
 
     char *end;
-    int new_k = strtol (argv[2], &end,10);
+    int new_k = strtol (argv[2], &end,DECIMAL_BASE);
     if (strcmp (end,"")!=0||(strcmp (argv[2],"0")!=0&&new_k==0)){
       fprintf (stderr, "The given shift value is invalid.\n");
       return EXIT_FAILURE;
